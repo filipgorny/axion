@@ -9,7 +9,14 @@ type DtoNode struct {
 	Properties []DtoProperty
 }
 
-func (d *DtoNode) Type() string {
+func NewDtoNode(name string, properties ...DtoProperty) *DtoNode {
+	return &DtoNode{
+		Name:       name,
+		Properties: append(make([]DtoProperty, 0), properties...),
+	}
+}
+
+func (d *DtoNode) Type() node.NodeType {
 	return "dto"
 }
 
@@ -25,4 +32,11 @@ type DtoPropertyPrimitive struct {
 type DtoPropertyCollection struct {
 	Name     string
 	Children []DtoProperty
+}
+
+func (d *DtoPropertyPrimitive) Characteristics() node.NodeCharacteristics {
+	return node.NodeCharacteristics{
+		"doesn't include ID",
+		"it is often use to represent data structures passed to the methods",
+	}
 }

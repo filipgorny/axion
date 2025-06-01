@@ -36,3 +36,19 @@ type Property struct {
 	Name string
 	Type node.DataType
 }
+
+func NewProperty(name string, dataType node.DataType) *Property {
+	return &Property{
+		Name: name,
+		Type: dataType,
+	}
+}
+
+func (e *EntityNode) Characteristics() node.NodeCharacteristics {
+	return node.NodeCharacteristics{
+		"it is used to represent a domain entity",
+		"it can contain properties that define the entity's state",
+		"it can have child entities that represent relationships or nested structures",
+		"it is often used to model complex data structures in the application",
+	}
+}
