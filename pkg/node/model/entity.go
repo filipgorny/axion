@@ -57,8 +57,8 @@ func NewProperty(name string, dataType node.DataType) *Property {
 func (e *EntityNode) Characteristics() node.NodeCharacteristics {
 	return node.NodeCharacteristics{
 		"it is used to represent a domain entity",
-		"it can contain properties that define the entity's state",
+		"it can contain properties that define the entity's state in the runtime",
 		"it can have child entities that represent relationships or nested structures",
-		"it is often used to model complex data structures in the application",
+		"it can correspond to a table in a database",
 	}
 }
