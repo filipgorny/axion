@@ -1,24 +1,20 @@
 package node
 
-import (
-	"strings"
-)
-
 type NodeType string
 
 type Node interface {
+	Name() string
 	Type() NodeType
-	Characteristics() []string
+	Characteristics() NodeCharacteristics
+	Path() *Path
 }
 
 type NodeCharacteristics []string
 
-func Characeteristics(characteristics string) NodeCharacteristics {
+func Characteristics(characteristics ...string) NodeCharacteristics {
 	result := make([]string, 0)
 
-	characteristicsList := strings.Split(characteristics, "\n")
-
-	for _, value := range characteristicsList {
+	for _, value := range characteristics {
 		result = append(result, value)
 	}
 

@@ -6,11 +6,12 @@ type PackageNode struct {
 	FolderNode
 }
 
-func NewPackageNode(name string, children ...*node.Node) *PackageNode {
+func NewPackageNode(name string, children ...node.Node) *PackageNode {
 	return &PackageNode{
 		FolderNode: FolderNode{
-			Name:     name,
-			Children: append(make([]*node.Node, 0), children...),
+			name:     name,
+			path:     node.NewPath(name),
+			Children: append(make([]node.Node, 0), children...),
 		},
 	}
 }

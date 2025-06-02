@@ -28,8 +28,18 @@ func NewEntityNode(name string, properties []*Property, children []*EntityNode) 
 	return entity
 }
 
+func NewEntity(name string) *EntityNode {
+	entity := &EntityNode{
+		Name:       name,
+		Properties: make([]*Property, 0),
+		Children:   make([]*EntityNode, 0),
+	}
+
+	return entity
+}
+
 func (e *EntityNode) Type() string {
-	return e.Name
+	return "entity"
 }
 
 type Property struct {
