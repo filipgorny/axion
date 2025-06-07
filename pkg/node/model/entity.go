@@ -5,14 +5,26 @@ import (
 )
 
 type EntityNode struct {
-	Name       string
+	entityName string
 	Properties []*Property
 	Children   []*EntityNode
+	path       *node.Path
+}
+
+func (e *EntityNode) Name() string {
+	return "entity"
+}
+
+func (e *EntityNode) Path() *node.Path {
+	if e.path == nil {
+		e.path = node.NewPath(e.entityName)
+	}
+	return e.path
 }
 
 func NewEntityNode(name string, properties []*Property, children []*EntityNode) *EntityNode {
 	entity := &EntityNode{
-		Name:       name,
+		entityName: name,
 		Properties: make([]*Property, 0),
 		Children:   make([]*EntityNode, 0),
 	}
@@ -28,9 +40,13 @@ func NewEntityNode(name string, properties []*Property, children []*EntityNode) 
 	return entity
 }
 
+func (e *EntityNode) EntityName() string {
+	return e.entityName
+}
+
 func NewEntity(name string) *EntityNode {
 	entity := &EntityNode{
-		Name:       name,
+		entityName: name,
 		Properties: make([]*Property, 0),
 		Children:   make([]*EntityNode, 0),
 	}
@@ -38,7 +54,12 @@ func NewEntity(name string) *EntityNode {
 	return entity
 }
 
-func (e *EntityNode) Type() string {
+func (e *EntityNode) AddProperty(name string, dataType node.DataType) *EntityNode {
+	e.Properties = append(e.Properties, NewProperty(name, dataType))
+	return e
+}
+
+func (e *EntityNode) Type() node.NodeType {
 	return "entity"
 }
 

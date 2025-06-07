@@ -70,18 +70,34 @@ func (f *FolderNode) FindWithPath(query *node.NodeQuery, path *node.Path) node.N
 	return nil
 }
 
-func (f *FolderNode) AddElement(element node.Node) {
-	if element == nil {
-		return
+func (f *FolderNode) FindChildFolder(query *node.NodeQuery) *FolderNode {
+	for _, child := range f.Children {
+		if child.Type() == "folder" {
+			if folderChild, ok := child.(*FolderNode); ok && query.Matches(folderChild) {
+				return folderChild
+			}
+		}
 	}
 
-	if standardElement, ok := element.(*node.StandardNode); ok {
-		standardElement.SetPath(node.NewPath(f.Name()))
+	return nil
+}
 
-		element = standardElement
+func (f *FolderNode) AddElement(elements ...node.Node) *FolderNode {
+	for _, element := range elements {
+		if element == nil {
+			return f
+		}
+
+		if standardElement, ok := element.(*node.StandardNode); ok {
+			standardElement.SetPath(node.NewPath(f.Name()))
+
+			element = standardElement
+		}
+
+		f.Children = append(f.Children, element)
 	}
 
-	f.Children = append(f.Children, element)
+	return f
 }
 
 func (f *FolderNode) RemoveElement(element node.Node) {

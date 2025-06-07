@@ -33,3 +33,7 @@ func (p *Project) GetModule(name string) *folder.ModuleNode {
 
 	return nil
 }
+
+func (p *Project) Root() *folder.FolderNode {
+	return p.RootNode
+}

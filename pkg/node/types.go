@@ -3,10 +3,14 @@ package node
 type DataType int
 
 const (
-	String DataType = iota
+	ID = iota
+	Entity
+	String
 	Integer
 	Boolean
 	Float
 	DateTime
 	Object
+	Money
+	Void
 )
